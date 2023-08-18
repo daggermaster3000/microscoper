@@ -112,6 +112,7 @@ def save_images(images, channel, save_directory, big=False,
     """Saves the images as TIFs with channel name as the filename.
     Channel names are saved as numbers when names are not available."""
     name = save_directory.split("\\")[-1]
+    print(name)
     # Make the output directory, if it doesn't alredy exist.
     if not os.path.exists(save_directory):
         os.makedirs(save_directory)
