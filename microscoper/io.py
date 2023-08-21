@@ -111,22 +111,21 @@ def save_images(images, channel, save_directory, big=False,
                 save_separate=False):
     """Saves the images as TIFs with channel name as the filename.
     Channel names are saved as numbers when names are not available."""
-    name = save_directory.split("\\")[-1]
-    print(name)
+
     # Make the output directory, if it doesn't alredy exist.
     if not os.path.exists(save_directory):
         os.makedirs(save_directory)
 
     # Save a file for every image in a stack.
     if save_separate:
-        filename = save_directory + name + "_{}.tif"
+        filename = save_directory + str(channel) + "_{}.tif"
         for num, image in enumerate(images):
             with tf.TiffWriter(filename.format(num+1), bigtiff=big) as f:
                 f.save(image)
 
     # Save a single .tif file for all the images in a channel.
     else:
-        filename = save_directory + name + ".tif"
+        filename = save_directory + str(channel) + ".tif"
         with tf.TiffWriter(filename, bigtiff=big) as f:
             f.save(images)
 
