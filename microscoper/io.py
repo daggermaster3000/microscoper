@@ -36,6 +36,7 @@ def get_files(directory, keyword):
             filename = os.path.join(path, name)
             if keyword in filename:
                 file_list.append(filename)
+        
     return sorted(file_list)
 
 
@@ -101,7 +102,7 @@ def read_images(path, save_directory, big, save_separate):
 
                     images.append(image)
 
-            save_images(np.asarray(images), channel_name, save_directory, big,
+            save_images(np.asarray(images), path, save_directory, big,
                         save_separate)
 
     return metadata
