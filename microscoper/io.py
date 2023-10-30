@@ -17,6 +17,7 @@ import tifffile as tf
 import tqdm
 from .args import arguments
 import xml.dom.minidom
+import PySimpleGUI as sg
 
 
 def get_files(directory, keyword):
@@ -169,6 +170,7 @@ def run():
 
     arg = arguments()
     files = get_files(arg.f, arg.k)
+    
 
     if 0 == len(files):
         print("No file matching *{}* keyword.".format(arg.k))
@@ -182,6 +184,7 @@ def run():
         print("======================")
         exit()
 
+    save_dir = sg.popup_get_folder("",no_window=True)
     jb.start_vm(class_path=bf.JARS, max_heap_size="2G")
     logger = _init_logger()
 
@@ -193,7 +196,7 @@ def run():
 
         file_location = os.path.dirname(os.path.realpath(path))
         filename = os.path.splitext(os.path.basename(path))[0]
-        save_directory = file_location + "/_{}_/".format(filename)
+        save_directory = save_dir + "/_{}_/".format(filename.replace(".vsi",""))
 
         pbar_files.set_description("..." + path[-15:])
 
